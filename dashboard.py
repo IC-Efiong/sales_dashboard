@@ -12,14 +12,15 @@ st.set_page_config(page_title="Sales Dashboard!!!", page_icon=":bar_chart:", lay
 st.title(":bar_chart: Sales Dashboard EDA")
 st.markdown('<style>div.block-container{padding-top:1rem;}</style>', unsafe_allow_html=True)
 
-file_upload=st.file_uploader(":file_folder: Upload a file", type=(["csv","txt","xlsx","xls"]))
-if file_upload is not None:
-    filename = file_upload.name
-    st.write(filename)
-    df = pd.read_csv(filename, encoding="ISO-8859-1")
-else:
-    os.chdir(r"C:\Users\I.C.E\Desktop\sales_dashboard")
-    df = pd.read_csv("Superstore.csv", encoding="ISO-8859-1")
+uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
+
+if uploaded_file is not None:
+    # Read the dataset
+    df = pd.read_csv(uploaded_file, encoding="ISO-8859-1")
+
+    # Display the dataset
+    st.write("Uploaded Dataset:")
+    st.write(df)
 
 col1, col2 = st.columns((2))
 df["Order Date"] = pd.to_datetime(df["Order Date"])
